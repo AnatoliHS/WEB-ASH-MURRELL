@@ -1,0 +1,288 @@
+/* ========================================================
+   Ash Murrell - Theme
+   Colours, type and base components only. No page layout yet.
+   ======================================================== */
+
+:root {
+  /* Dark surfaces */
+  --bg-main: #0c0407;
+  --bg-card: #181410;
+  --bg-card-alt: #14100d;
+  --bg-card-hover: #221c17;
+  --bg-surface: #171717;
+  --bg-navbar: rgba(12, 4, 7, 0.75);
+
+  /* Light surfaces */
+  --bg-cream: #f4efe6;
+  --bg-cream-alt: #edeae3;
+
+  /* Deep teal surfaces, and ink on light surfaces */
+  --bg-teal: #0f2b2c;
+  --bg-teal-deep: #0b1e1c;
+
+  /* Text */
+  --text-main: #f3f0e8;
+  --text-pure-white: #ffffff;
+  --text-warm-white: #f5f2eb;
+  --text-muted: #a3a3a3;
+  --text-subtle: #737373;
+  --text-dark: #181410;
+  --text-on-light: #0f2b2c;
+  --text-on-light-muted: #5a554f;
+
+  /* Accents */
+  --accent-red: #ef4540;
+  --accent-red-hover: #fc362d;
+  --accent-red-dark: #c70e08;
+  --accent-amber: #de9e3b;
+  --accent-orange: #d9823b;
+  --accent-copper: #b86c2c;
+  --accent-terracotta: #a83c27;
+  --accent-terracotta-dark: #a03622;
+  --accent-sand: #e4d7a9;
+  --accent-yellow: #edd040;
+
+  /* Three-band stripe, darkest on top */
+  --stripe-1: #7b1e00;
+  --stripe-2: #a64400;
+  --stripe-3: #be6e0e;
+
+  /* Borders */
+  --border-light: rgba(255, 255, 255, 0.08);
+  --border-card: rgba(255, 255, 255, 0.12);
+  --border-accent: rgba(239, 69, 64, 0.35);
+
+  /* Type */
+  --font-sans: 'Geist', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Geist', 'Inter', sans-serif;
+  --font-mono: 'Red Hat Mono', monospace;
+
+  /* Shape and motion */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+  --max-width: 1420px;
+  --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.4;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+main {
+  flex-grow: 1;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-red);
+  outline-offset: 3px;
+}
+
+/* Containers */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 clamp(16px, 4vw, 48px);
+}
+
+.container-narrow {
+  width: 100%;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0 clamp(16px, 4vw, 24px);
+}
+
+/* Type */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  color: var(--text-warm-white);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 5.5vw, 4.25rem);
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+h3 {
+  font-size: clamp(1.35rem, 2.5vw, 1.85rem);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent-copper);
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+.eyebrow-accent {
+  color: var(--accent-red);
+}
+
+.eyebrow-sand {
+  color: var(--accent-sand);
+}
+
+.text-accent {
+  color: var(--accent-red);
+}
+
+/* Three touching stripes */
+.stripes {
+  display: block;
+  height: 12px;
+  background: linear-gradient(to bottom, var(--stripe-1) 0 4px, var(--stripe-2) 4px 8px, var(--stripe-3) 8px 12px);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border-radius: var(--radius-full);
+  font-size: 15px;
+  font-weight: 600;
+  transition: var(--transition);
+  text-align: center;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #fc362d 0%, #ef4540 50%, #c70e08 100%);
+  color: #ffffff;
+  box-shadow: 0 0 20px rgba(239, 69, 64, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(239, 69, 64, 0.65), inset 0 1px 1px rgba(255, 255, 255, 0.5);
+  background: linear-gradient(135deg, #ff4c44 0%, #fc362d 50%, #d4140e 100%);
+}
+
+.btn-secondary {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-card);
+  color: var(--text-warm-white);
+}
+
+.btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+.btn-text {
+  color: var(--text-muted);
+  font-size: 15px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+}
+
+.btn-text:hover {
+  color: var(--text-warm-white);
+}
+
+/* Starter page. Delete once the real home page exists. */
+.starter {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 64px 0;
+}
+
+.starter-logo {
+  width: 72px;
+  height: auto;
+  margin-bottom: 32px;
+}
+
+.starter-tagline {
+  font-size: clamp(1.125rem, 2vw, 1.5rem);
+  color: var(--text-muted);
+  max-width: 34em;
+  margin-top: 20px;
+}
+
+.starter-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+  }
+}

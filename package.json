@@ -1,0 +1,20 @@
+{
+    "name": "ash-murrell-website",
+    "version": "0.1.0",
+    "private": true,
+    "description": "Personal website of Ash Murrell: brand strategist, speaker and host of Amplified.",
+    "homepage": "https://ashmurrell.com",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/AnatoliHS/WEB-ASH-MURRELL.git"
+    },
+    "scripts": {
+        "start": "eleventy --serve",
+        "build": "eleventy",
+        "buildfresh": "rm -rf dist _site && eleventy"
+    },
+    "license": "AGPL-3.0-only",
+    "devDependencies": {
+        "@11ty/eleventy": "^2.0.1"
+    }
+}
