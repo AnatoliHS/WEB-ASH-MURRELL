@@ -159,6 +159,31 @@ if (video && reducedMotion) {
   video.pause();
 }
 
+// Elements that animate in the first time they're reached
+const seenObserver = new IntersectionObserver(entries => entries.forEach(entry => {
+  if (entry.isIntersecting) {
+    entry.target.classList.add("is-seen");
+    seenObserver.unobserve(entry.target);
+  }
+}), { threshold: 0.25 });
+document.querySelectorAll("[data-seen]").forEach(el => seenObserver.observe(el));
+
+// Posters: one with more words than the screen has room for mustn't get covered before it's read
+const posters = document.querySelectorAll(".poster");
+function fitPosters() {
+  posters.forEach(poster => {
+    const inner = poster.firstElementChild.offsetHeight;
+    const style = getComputedStyle(poster);
+    const room = window.innerHeight - parseFloat(style.top || 0) - parseFloat(style.paddingTop) - parseFloat(style.paddingBottom);
+    poster.classList.toggle("is-tall", inner > room);
+  });
+}
+if (posters.length) {
+  fitPosters();
+  window.addEventListener("resize", fitPosters);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitPosters);
+}
+
 // Contact forms: open the visitor's email app with the message filled in
 document.querySelectorAll("[data-contact-form]").forEach(form => {
   form.addEventListener("submit", event => {

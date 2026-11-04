@@ -1,5 +1,5 @@
 {% macro episodeCard(item) %}
-<a class="card" href="{{ item.url }}">
+<a class="card card-episode" href="{{ item.url }}">
   <span class="card-media"><img src="{{ item.data.image }}" alt="" loading="lazy" width="960" height="540"></span>
   <span class="card-meta">Episode {{ item.data.episode }}</span>
   <span class="card-title">{{ item.data.title }}</span>
