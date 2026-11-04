@@ -1,0 +1,40 @@
+---
+layout: default
+title: "Contact Ash Murrell | Start a Thoughtful Conversation"
+description: "Get in touch with Ash Murrell about the Amplified podcast, speaking, consulting or sponsorship."
+permalink: "/contact/"
+---
+
+<section class="page-top">
+  <div class="container split split-top">
+    <div>
+      <span class="eyebrow eyebrow-accent">Contact</span>
+      <h1 class="page-title">Let’s start a conversation.</h1>
+      <address class="contact-address">1325 Highway #2, Unit 4,<br>Belleville, ON, K8P4T3</address>
+      <a class="contact-email" href="mailto:{{ site.email }}">{{ site.email }}</a>
+      <img class="split-image contact-image" src="/images/photos/crew.jpg" alt="A film crew talking between takes in a bright studio kitchen" loading="lazy" width="1800" height="1200">
+      <h2 class="contact-closer">Curiosity wins</h2>
+    </div>
+    <form class="form" data-contact-form data-email="{{ site.email }}">
+      <div class="form-row">
+        <label>First Name <input name="first" type="text" autocomplete="given-name" required></label>
+        <label>Last Name <input name="last" type="text" autocomplete="family-name" required></label>
+      </div>
+      <label>Email <input name="email" type="email" autocomplete="email" placeholder="example@company.com" required></label>
+      <label>Business Name (Optional) <input name="business" type="text" autocomplete="organization"></label>
+      <label>Business Website (Optional) <input name="website" type="url" placeholder="https://"></label>
+      <label>Reason
+        <select name="reason" required>
+          <option value="">Select…</option>
+          <option>Podcast</option>
+          <option>Speaking</option>
+          <option>Consulting</option>
+          <option>Sponsorship</option>
+        </select>
+      </label>
+      <label>Message <textarea name="message" rows="5" required></textarea></label>
+      <button class="btn btn-primary" type="submit">Submit</button>
+      <p class="form-note">Submitting opens your email app with this message ready to send.</p>
+    </form>
+  </div>
+</section>

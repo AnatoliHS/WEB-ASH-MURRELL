@@ -1,0 +1,16 @@
+---
+layout: default
+---
+{% from "component/cards.njk" import pager %}
+<article class="page-top">
+  <div class="container-narrow">
+    <span class="eyebrow eyebrow-accent">{{ category or "Blog" }}</span>
+    <h1 class="article-title">{{ title }}</h1>
+    <p class="article-meta">{{ page.date | readableDate }}</p>
+    {% if image %}<img class="article-image" src="{{ image }}" alt="">{% endif %}
+    <div class="prose">
+      {{ content | safe }}
+    </div>
+    {{ pager(collections.postList | neighbours(page.url), "More posts") }}
+  </div>
+</article>

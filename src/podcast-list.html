@@ -1,0 +1,20 @@
+---
+layout: default
+title: "Amplified Podcast by Ash Murrell | Long-Form Conversations"
+description: "The Amplified podcast features long-form conversations with thinkers, creators, and leaders exploring clarity, purpose, and meaningful work. Hosted by Ash Murrell."
+permalink: "/podcast/"
+---
+{% from "component/cards.njk" import episodeCard %}
+<section class="page-top">
+  <div class="container">
+    <span class="eyebrow eyebrow-accent">Amplified — The Podcast</span>
+    <h1 class="page-title">1000 Conversations About Becoming More Human</h1>
+    <div class="actions">
+      <a class="btn btn-primary" href="{{ site.social.spotify }}">Listen on Spotify</a>
+      <a class="btn btn-secondary" href="{{ site.social.youtube }}">Watch on YouTube</a>
+    </div>
+    <div class="card-grid list-grid">
+      {% for item in collections.episodeList %}{{ episodeCard(item) }}{% endfor %}
+    </div>
+  </div>
+</section>

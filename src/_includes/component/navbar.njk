@@ -1,0 +1,65 @@
+<!-- Black bar with the stripes, which fades in once the brand docks -->
+<div class="site-header-bar" aria-hidden="true"></div>
+
+<!-- Dynamic brand: large in the home hero, docks into the top-left corner once scrolling starts. Docked on every other page. -->
+<a href="/" id="dynamic-brand" class="dynamic-brand" aria-label="{{ site.name }}, home">{% wordmark %}</a>
+
+<!-- Beside the docked brand, cycling through what Ash does (site.js) -->
+<p class="brand-phrase" id="brand-phrase" aria-hidden="true" data-phrases="{{ site.phrases | dump }}">
+  <span class="phrase-word">{{ site.phrases[0] }}</span>
+</p>
+
+<nav class="header-nav" aria-label="Main">
+  <div class="nav-links">
+    {% for item in site.nav %}
+    <a href="{{ item.url }}" class="nav-link{% if loop.last %} nav-pill{% endif %}"{% if page.url and page.url.startsWith(item.url) %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    {% endfor %}
+  </div>
+</nav>
+
+<!-- Opens the drawer, and closes it again. On narrower screens the drawer also holds the links, so it reads Menu. -->
+<button type="button" id="drawer-trigger" class="btn header-cta" aria-expanded="false" aria-controls="site-drawer">
+  <span class="label-open"><span class="label-wide">Let's Talk</span><span class="label-narrow">Menu</span></span>
+  <span class="label-close">Close</span>
+  <svg class="cta-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+    <path d="M7 1.5v11M1.5 7h11"/>
+  </svg>
+</button>
+
+<!-- Top-down drawer -->
+<div id="site-drawer" class="site-drawer" hidden>
+  <div class="drawer-backdrop" id="drawer-backdrop"></div>
+  <div class="drawer-panel section-light" role="dialog" aria-modal="true" aria-labelledby="drawer-title">
+    <div class="container drawer-grid">
+      <div class="drawer-intro">
+        <nav class="drawer-nav" aria-label="Menu">
+          {% for item in site.nav %}
+          <a href="{{ item.url }}"{% if page.url and page.url.startsWith(item.url) %} aria-current="page"{% endif %}>{{ item.label }}</a>
+          {% endfor %}
+        </nav>
+        <span class="eyebrow">Let's Talk</span>
+        <h2 class="drawer-title" id="drawer-title">Let’s start a <span class="mark">conversation.</span></h2>
+        <p class="drawer-copy">The podcast, speaking, consulting or sponsorship: tell me what you have in mind.</p>
+      </div>
+
+      <div class="drawer-form-col">
+        <form class="form" data-contact-form data-email="{{ site.email }}">
+          <label>Name <input name="name" type="text" autocomplete="name" required></label>
+          <label>Email <input name="email" type="email" inputmode="email" autocomplete="email" placeholder="example@company.com" required></label>
+          <label>Reason
+            <select name="reason" required>
+              <option value="">Select…</option>
+              <option>Podcast</option>
+              <option>Speaking</option>
+              <option>Consulting</option>
+              <option>Sponsorship</option>
+            </select>
+          </label>
+          <label>Message <textarea name="message" rows="3" required></textarea></label>
+          <button class="btn btn-primary" type="submit">Submit</button>
+          <p class="form-note">Submitting opens your email app with this message ready to send. Or write to <a href="mailto:{{ site.email }}">{{ site.email }}</a>.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

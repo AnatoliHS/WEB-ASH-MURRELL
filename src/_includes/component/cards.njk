@@ -1,0 +1,24 @@
+{% macro episodeCard(item) %}
+<a class="card" href="{{ item.url }}">
+  <span class="card-media"><img src="{{ item.data.image }}" alt="" loading="lazy" width="960" height="540"></span>
+  <span class="card-meta">Episode {{ item.data.episode }}</span>
+  <span class="card-title">{{ item.data.title }}</span>
+  <span class="card-sub">{{ item.data.guest }}</span>
+</a>
+{% endmacro %}
+
+{% macro postCard(item) %}
+<a class="card" href="{{ item.url }}">
+  <span class="card-media"><img src="{{ item.data.image }}" alt="" loading="lazy" width="960" height="540"></span>
+  <span class="card-meta">{{ item.data.category or "Blog" }}</span>
+  <span class="card-title">{{ item.data.title }}</span>
+  <span class="card-sub">{{ item.date | readableDate }}</span>
+</a>
+{% endmacro %}
+
+{% macro pager(links, label) %}
+<nav class="pager" aria-label="{{ label }}">
+  {% if links.older %}<a href="{{ links.older.url }}"><span class="eyebrow">Previous</span>{{ links.older.data.title }}</a>{% else %}<span></span>{% endif %}
+  {% if links.newer %}<a class="pager-next" href="{{ links.newer.url }}"><span class="eyebrow">Next</span>{{ links.newer.data.title }}</a>{% endif %}
+</nav>
+{% endmacro %}

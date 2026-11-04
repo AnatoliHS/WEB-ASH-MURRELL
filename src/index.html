@@ -1,16 +1,34 @@
 ---
 layout: default
 ---
+{% from "component/cards.njk" import episodeCard %}
 
-<section class="starter">
+<section class="hero" id="hero">
+  <video class="hero-video" autoplay muted loop playsinline poster="/images/photos/hero-poster.jpg" aria-hidden="true" data-hero-video>
+    <source src="/video/hero.mp4" type="video/mp4">
+  </video>
+  <div class="container hero-content">
+    <h1 class="hero-wordmark"><img src="/images/wordmark.svg" alt="Ash Murrell" width="1841" height="244"></h1>
+    <script src="/hero-intro.js"></script>
+    <p class="hero-tagline">{{ site.tagline }}</p>
+  </div>
+</section>
+
+<section class="section">
   <div class="container">
-    <img class="starter-logo" src="/images/logo.png" alt="" width="72" height="72">
-    <span class="eyebrow eyebrow-accent">{{ site.name }}</span>
-    <h1><span class="text-accent">Thrive</span> over Survive.</h1>
-    <p class="starter-tagline">{{ site.tagline }}</p>
-    <div class="starter-actions">
-      <a class="btn btn-primary" href="mailto:{{ site.email }}">Start a conversation</a>
-      <a class="btn btn-secondary" href="{{ site.social.spotify }}">Listen to Amplified</a>
+    <div class="section-head">
+      <div>
+        <span class="eyebrow eyebrow-accent">Amplified</span>
+        <h2>Recent Podcasts</h2>
+      </div>
+      <a class="btn btn-secondary" href="/podcast/">All {{ collections.episodeList.length }} episodes</a>
+    </div>
+    <div class="card-grid card-grid-4">
+      {% for item in collections.episodeList | first(4) %}{{ episodeCard(item) }}{% endfor %}
     </div>
   </div>
 </section>
+
+{% include "component/episode-zero.njk" %}
+
+{% include "component/amplified.njk" %}

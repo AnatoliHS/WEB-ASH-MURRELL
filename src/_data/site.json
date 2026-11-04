@@ -13,5 +13,34 @@
     "instagram": "https://www.instagram.com/thatunexpectedcanadian/",
     "linkedin": "https://www.linkedin.com/in/ashmurrell-amp/",
     "substack": "https://thatunexpectedcanadian.substack.com/"
-  }
+  },
+  "nav": [
+    {
+      "label": "About",
+      "url": "/about-us/"
+    },
+    {
+      "label": "Podcast",
+      "url": "/podcast/"
+    },
+    {
+      "label": "Blog",
+      "url": "/blog/"
+    },
+    {
+      "label": "Speaking",
+      "url": "/speaking/"
+    },
+    {
+      "label": "Contact",
+      "url": "/contact/"
+    }
+  ],
+  "phrases": [
+    "Brand strategist",
+    "Creative strategist",
+    "Speaker",
+    "Host of Amplified",
+    "Thrive over survive"
+  ]
 }

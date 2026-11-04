@@ -1,0 +1,24 @@
+---
+layout: default
+---
+{% from "component/cards.njk" import pager %}
+<article class="page-top">
+  <div class="container-narrow">
+    <span class="eyebrow eyebrow-accent">Amplified · Episode {{ episode }}</span>
+    <h1 class="article-title">{{ title }}</h1>
+    <p class="article-meta">With {{ guest }} · {{ page.date | readableDate }}</p>
+    <div class="actions">
+      {% if spotify %}<a class="btn btn-primary" href="{{ spotify }}">Listen on Spotify</a>{% endif %}
+      {% if youtube %}<a class="btn btn-secondary" href="{{ youtube }}">Watch on YouTube</a>{% endif %}
+    </div>
+    {% if youtube %}
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/{{ youtube | youtubeId }}" title="{{ title }}" loading="lazy" allow="encrypted-media; picture-in-picture; fullscreen" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    </div>
+    {% endif %}
+    <div class="prose">
+      {{ content | safe }}
+    </div>
+    {{ pager(collections.episodeList | neighbours(page.url), "More episodes") }}
+  </div>
+</article>
