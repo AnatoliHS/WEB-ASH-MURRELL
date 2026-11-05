@@ -6,11 +6,6 @@
       <a class="btn btn-primary" href="/contact/">Start a conversation</a>
     </div>
     <div class="footer-grid">
-      <div>
-        <p class="footer-name">{{ site.name }}</p>
-        <address>{{ site.address }}</address>
-        <a class="footer-email" href="mailto:{{ site.email }}">{{ site.email }}</a>
-      </div>
       <nav aria-label="Footer">
         <span class="eyebrow eyebrow-sand">Explore</span>
         {% for item in site.nav %}<a href="{{ item.url }}">{{ item.label }}</a>{% endfor %}
@@ -23,6 +18,11 @@
         <a href="{{ site.social.linkedin }}">LinkedIn</a>
         <a href="{{ site.social.substack }}">Substack</a>
       </nav>
+      <div class="footer-contact">
+        <span class="eyebrow eyebrow-sand">Get in touch</span>
+        <a class="footer-email" href="mailto:{{ site.email }}">{{ site.email }}</a>
+        <address>{{ site.address }}</address>
+      </div>
     </div>
     <p class="footer-legal">© {% year %} {{ site.name }}</p>
   </div>

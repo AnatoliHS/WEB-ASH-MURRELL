@@ -1619,8 +1619,8 @@ html:not(.js) .ez-time {
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 32px;
-  padding: clamp(64px, 8vw, 112px) 0;
+  gap: 24px 32px;
+  padding: clamp(36px, 4vw, 56px) 0;
   border-bottom: 1px solid var(--border-light);
 }
 
@@ -1630,51 +1630,77 @@ html:not(.js) .ez-time {
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  gap: 40px;
-  padding: 56px 0;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px clamp(24px, 4vw, 56px);
+  padding: clamp(28px, 3.2vw, 44px) 0;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 860px) {
   .footer-grid {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footer-contact {
+    grid-column: 1 / -1;
   }
 }
 
-.footer-grid nav {
+.footer-grid nav,
+.footer-contact {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 10px;
+  gap: 4px;
 }
 
-.footer-grid nav .eyebrow {
-  margin-bottom: 6px;
+.footer-grid .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+/* A small burnt orange block, echoing the ASH box in the wordmark */
+.footer-grid .eyebrow::before {
+  content: "";
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  background: var(--accent-orange);
+}
+
+.footer-grid nav a,
+.footer-email {
+  font-family: var(--font-heading);
+  font-size: clamp(1.375rem, 2.4vw, 2.125rem);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--text-warm-white);
+}
+
+.footer-email {
+  overflow-wrap: anywhere;
 }
 
 .footer-grid nav a:hover,
 .footer-email:hover {
-  color: var(--accent);
-}
-
-.footer-name {
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 1.25rem;
-  color: var(--text-warm-white);
-  margin-bottom: 8px;
+  color: var(--accent-orange);
 }
 
 .footer address {
+  margin-top: 8px;
+  font-size: 1.125rem;
   font-style: normal;
   color: var(--text-muted);
-  margin-bottom: 8px;
 }
 
 .footer-legal {
-  padding-bottom: 32px;
-  font-size: 0.875rem;
-  color: var(--text-subtle);
+  padding: 18px 0;
+  border-top: 1px solid var(--border-light);
+  font-size: 0.9375rem;
+  color: var(--text-muted);
 }
 
 /* 404 */
