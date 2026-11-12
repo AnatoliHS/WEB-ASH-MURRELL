@@ -5,6 +5,8 @@
   <meta name="theme-color" content="#0c0407">
   {% set pageTitle = seoTitle or title or site.title %}
   {% set shareImage = image or "/images/og-logo.png" %}
+  {#- Share images only: served from site.shareImageUrl while ashmurrell.com is still on Framer. Remove that line from site.json once the domain moves. #}
+  {% set shareImageHost = site.shareImageUrl or site.url %}
   <title>{{ pageTitle }}</title>
   <meta name="description" content="{{ description | default(site.description) }}">
   <meta name="author" content="{{ site.name }}">
@@ -17,7 +19,7 @@
   <meta property="og:description" content="{{ description | default(site.description) }}">
   <meta property="og:site_name" content="{{ site.name }}">
   <meta property="og:url" content="{{ site.url }}{{ page.url }}">
-  <meta property="og:image" content="{{ site.url }}{{ shareImage }}">
+  <meta property="og:image" content="{{ shareImageHost }}{{ shareImage }}">
   {% if not image %}<meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">{% endif %}
   <meta property="og:image:alt" content="{{ pageTitle if image else site.name + ' logo' }}">
@@ -26,7 +28,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{{ pageTitle }}">
   <meta name="twitter:description" content="{{ description | default(site.description) }}">
-  <meta name="twitter:image" content="{{ site.url }}{{ shareImage }}">
+  <meta name="twitter:image" content="{{ shareImageHost }}{{ shareImage }}">
 
   <!-- Cloudflare Turnstile site key for the contact forms (site.js). Empty: Cloudflare's always-pass test key. -->
   <meta name="turnstile-site-key" content="{{ site.turnstileSiteKey or '1x00000000000000000000AA' }}">
