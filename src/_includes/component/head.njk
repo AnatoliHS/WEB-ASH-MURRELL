@@ -26,9 +26,13 @@
   <meta name="twitter:description" content="{{ description | default(site.description) }}">
   <meta name="twitter:image" content="{{ site.url }}{{ shareImage }}">
 
+  <!-- Cloudflare Turnstile site key for the contact forms (site.js). Empty: Cloudflare's always-pass test key. -->
+  <meta name="turnstile-site-key" content="{{ site.turnstileSiteKey or '1x00000000000000000000AA' }}">
+
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="/images/favicon.png">
-  <link rel="apple-touch-icon" href="/images/logo.png">
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/images/favicon.png">
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
 
   <!-- Structured data -->
   <script type="application/ld+json">

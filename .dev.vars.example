@@ -1,0 +1,12 @@
+# Copy to .dev.vars (gitignored) for `npm run dev:pages`. In production, set these in
+# Cloudflare Pages → Settings → Variables and Secrets.
+
+# Cloudflare's always-pass test secret; swap for the real one from the Turnstile dashboard
+TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA
+
+# From resend.com → API Keys
+RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxxxxxx
+
+# Where messages go, and who they're from (a domain verified in Resend)
+CONTACT_TO_EMAIL=info@ashmurrell.com
+CONTACT_FROM_EMAIL=Ash Murrell website <website@ashmurrell.com>

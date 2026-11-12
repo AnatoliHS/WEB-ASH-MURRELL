@@ -327,6 +327,15 @@ h2:has(.mark) {
   opacity: 1;
 }
 
+/* With the drawer open, the bar comes above it as solid cream, so the drawer's content scrolls
+   under it rather than under the brand and the button */
+.drawer-open .site-header-bar {
+  z-index: 960;
+  opacity: 1;
+  background: var(--bg-cream);
+  transition: opacity 0.35s ease, background-color 0.35s ease;
+}
+
 /* Docked and visible by default, so it still works without JavaScript */
 .dynamic-brand {
   position: fixed;
@@ -346,6 +355,90 @@ h2:has(.mark) {
   display: block;
   width: 100%;
   height: auto;
+}
+
+/* Only the ASH box docks. Once MURRELL has glitched out, the link is clipped to the box, so the
+   empty space where MURRELL was can't be hovered or clicked. Coming back, it opens up at once. */
+.dynamic-brand {
+  clip-path: inset(0 0 0 0);
+}
+
+.dynamic-brand.is-docked,
+html:not(.js) .dynamic-brand {
+  clip-path: inset(0 68.3% 0 0); /* The box is the first 31.7% of the wordmark */
+}
+
+.dynamic-brand.is-docked {
+  transition: transform 0.48s cubic-bezier(0.2, 0.9, 0.3, 1), opacity 0.35s ease, color 0.35s ease, clip-path 0s linear 0.5s;
+}
+
+.wm-split {
+  opacity: 0;
+  mix-blend-mode: screen;
+}
+
+.dynamic-brand.is-docked .wm-murrell,
+html:not(.js) .wm-murrell {
+  opacity: 0;
+}
+
+/* The glitch: bands of MURRELL thrown sideways with the colours splitting off, until it's gone.
+   Played backwards, it glitches back in. */
+.murrell-out .wm-murrell > path,
+.murrell-in .wm-murrell > path {
+  animation: 0.5s steps(1, end) both;
+}
+
+.dynamic-brand.murrell-out .wm-murrell,
+.dynamic-brand.murrell-in .wm-murrell {
+  opacity: 1;
+}
+
+.murrell-in .wm-murrell > path {
+  animation-direction: reverse;
+}
+
+.murrell-out .wm-murrell > path:not(.wm-split),
+.murrell-in .wm-murrell > path:not(.wm-split) { animation-name: wm-glitch-main; }
+.murrell-out .wm-murrell > .wm-split-l,
+.murrell-in .wm-murrell > .wm-split-l { animation-name: wm-glitch-l; }
+.murrell-out .wm-murrell > .wm-split-r,
+.murrell-in .wm-murrell > .wm-split-r { animation-name: wm-glitch-r; }
+
+@keyframes wm-glitch-main {
+  0%   { opacity: 1; transform: translateX(0);      clip-path: inset(0 0 0 0); }
+  12%  { opacity: 1; transform: translateX(-30px);  clip-path: inset(0 0 0 0); }
+  24%  { opacity: 1; transform: translateX(50px);   clip-path: inset(30% 0 0 0); }
+  36%  { opacity: 1; transform: translateX(-110px); clip-path: inset(0 0 40% 0); }
+  48%  { opacity: 1; transform: translateX(70px);   clip-path: inset(45% 0 20% 0); }
+  60%  { opacity: 0.9; transform: translateX(-180px); clip-path: inset(10% 0 60% 0); }
+  72%  { opacity: 0.8; transform: translateX(140px);  clip-path: inset(60% 0 25% 0); }
+  84%  { opacity: 0.6; transform: translateX(-260px); clip-path: inset(30% 0 62% 0); }
+  100% { opacity: 0; transform: translateX(0);      clip-path: inset(0 0 0 0); }
+}
+
+@keyframes wm-glitch-l {
+  0%   { opacity: 0; transform: translateX(0);      clip-path: inset(0 0 0 0); }
+  12%  { opacity: 1; transform: translateX(-60px);  clip-path: inset(50% 0 10% 0); }
+  24%  { opacity: 1; transform: translateX(-20px);  clip-path: inset(0 0 55% 0); }
+  36%  { opacity: 1; transform: translateX(-150px); clip-path: inset(20% 0 30% 0); }
+  48%  { opacity: 1; transform: translateX(-50px);  clip-path: inset(70% 0 0 0); }
+  60%  { opacity: 1; transform: translateX(-240px); clip-path: inset(35% 0 45% 0); }
+  72%  { opacity: 1; transform: translateX(-110px); clip-path: inset(0 0 80% 0); }
+  84%  { opacity: 1; transform: translateX(-330px); clip-path: inset(75% 0 15% 0); }
+  100% { opacity: 0; transform: translateX(0);      clip-path: inset(0 0 0 0); }
+}
+
+@keyframes wm-glitch-r {
+  0%   { opacity: 0; transform: translateX(0);     clip-path: inset(0 0 0 0); }
+  12%  { opacity: 1; transform: translateX(40px);  clip-path: inset(15% 0 60% 0); }
+  24%  { opacity: 1; transform: translateX(90px);  clip-path: inset(55% 0 5% 0); }
+  36%  { opacity: 1; transform: translateX(30px);  clip-path: inset(5% 0 75% 0); }
+  48%  { opacity: 1; transform: translateX(170px); clip-path: inset(25% 0 50% 0); }
+  60%  { opacity: 1; transform: translateX(60px);  clip-path: inset(80% 0 0 0); }
+  72%  { opacity: 1; transform: translateX(230px); clip-path: inset(40% 0 35% 0); }
+  84%  { opacity: 1; transform: translateX(120px); clip-path: inset(0 0 70% 0); }
+  100% { opacity: 0; transform: translateX(0);     clip-path: inset(0 0 0 0); }
 }
 
 /* Without JavaScript the home hero shows its own wordmark, so this would be a second one */
@@ -417,9 +510,13 @@ html:not(.js):has(.hero) .dynamic-brand {
 @keyframes phrase-in { from { transform: translateY(100%); opacity: 0; } }
 @keyframes phrase-out { to { transform: translateY(-100%); opacity: 0; } }
 
-/* No room beside the brand and the button on phones */
-@media (max-width: 640px) {
-  .js .brand-phrase { display: none; }
+/* Never runs into the button: site.js gives it the room up to the button */
+.brand-phrase {
+  max-width: var(--phrase-max, none);
+}
+
+.js .brand-phrase.is-cramped {
+  display: none;
 }
 
 .header-nav {
@@ -450,17 +547,6 @@ html:not(.js):has(.hero) .dynamic-brand {
   color: var(--header-accent);
 }
 
-.nav-link.nav-pill {
-  padding: 6px 14px;
-  border: 1px solid var(--header-line);
-  border-radius: var(--radius-full);
-}
-
-.nav-link.nav-pill:hover,
-.nav-link.nav-pill[aria-current="page"] {
-  border-color: var(--header-accent);
-}
-
 /* Over the hero's video, before the bar is there, the links need their own help */
 html:not(.brand-docked) .nav-link {
   color: var(--text-pure-white);
@@ -469,10 +555,6 @@ html:not(.brand-docked) .nav-link {
 
 html:not(.brand-docked) .nav-link:hover {
   color: var(--accent);
-}
-
-html:not(.brand-docked) .nav-link.nav-pill {
-  border-color: rgba(255, 255, 255, 0.5);
 }
 
 @media (max-width: 1080px) {
@@ -744,6 +826,78 @@ html:not(.drawer-open) .header-cta:hover {
 
 .section-light .btn-secondary:hover {
   background: var(--bg-teal-deep);
+}
+
+/* Home photography carousel: one row at a common height, starting on the content edge and
+   running off the right of the screen. Swipe, trackpad, keyboard, or the arrow buttons. */
+.photo-track {
+  display: flex;
+  gap: clamp(12px, 1.6vw, 20px);
+  margin: 0;
+  padding: 0 var(--gutter);
+  list-style: none;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--gutter);
+  scrollbar-width: none;
+}
+
+.photo-track::-webkit-scrollbar {
+  display: none;
+}
+
+.photo-track:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.photo-slide {
+  flex: none;
+  scroll-snap-align: start;
+}
+
+.photo-slide img {
+  display: block;
+  width: auto;
+  height: clamp(280px, 38vw, 560px);
+  max-width: calc(100vw - 2 * var(--gutter));
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.carousel-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.carousel-controls[hidden] {
+  display: none;
+}
+
+.carousel-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-card);
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--text-warm-white);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.carousel-btn:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.carousel-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
 }
 
 .section-head {
@@ -1520,31 +1674,6 @@ html:not(.js) .ez-time {
   margin-left: auto;
 }
 
-/* Contact */
-.contact-address {
-  font-style: normal;
-  font-size: 1.15rem;
-  line-height: 1.5;
-  color: var(--text-muted);
-  margin-top: 24px;
-}
-
-.contact-email {
-  display: inline-block;
-  margin-top: 12px;
-  color: var(--accent);
-  font-size: 1.15rem;
-}
-
-.contact-image {
-  margin-top: 40px;
-  aspect-ratio: 3 / 2;
-}
-
-.contact-closer {
-  margin-top: 24px;
-}
-
 .form {
   display: flex;
   flex-direction: column;
@@ -1605,13 +1734,66 @@ html:not(.js) .ez-time {
   color: var(--text-muted);
 }
 
+/* A field only bots fill in (functions/api/contact.js drops those messages) */
+.form .form-hp {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Turnstile sizes itself: nothing unless it needs the visitor to click (site.js adds .is-visible
+   then). Until then, cancel the form's gap so the empty slot leaves no extra space. */
+.form-turnstile:not(.is-visible) {
+  margin-top: -20px;
+}
+.form-status:empty {
+  display: none;
+}
+
+.form-status {
+  padding: 12px 14px;
+  border-left: 3px solid var(--accent-orange);
+  border-radius: var(--radius-sm);
+  background: rgba(204, 85, 0, 0.1);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.form-status[data-kind="success"] {
+  border-left-color: var(--accent);
+  background: rgba(222, 158, 59, 0.12);
+}
+
+.form button[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
 /* Footer */
 .footer > .stripes {
   width: 100%;
 }
 
+/* At least a screen tall less the header bar, so at the bottom of the page the footer's stripes
+   land exactly on the header's, which hang just below the bar. The CTA takes up the extra room. */
 .footer {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - var(--header-h));
+  min-height: calc(100svh - var(--header-h));
   background: var(--bg-card-alt);
+}
+
+.footer > .container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.footer > .container > .footer-cta {
+  flex: 1;
 }
 
 .footer-cta {
@@ -1626,6 +1808,70 @@ html:not(.js) .ez-time {
 
 .footer-title {
   font-size: clamp(2.5rem, 7vw, 5.5rem);
+}
+
+/* "Survive" glitches every 4s, the same pattern as MURRELL leaving the header (wm-glitch-*):
+   bands thrown sideways with burnt orange and yellow splitting off. It plays over the first
+   0.5s of each cycle, then holds still, and settles back each time rather than vanishing. */
+.glitch {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch-main,
+.glitch-split {
+  display: inline-block;
+  animation: 4s steps(1, end) infinite;
+}
+
+.glitch-split {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  user-select: none;
+}
+
+.glitch-l { color: #cc5500; animation-name: glitch-l; }
+.glitch-r { color: #de9e3b; animation-name: glitch-r; }
+.glitch-main { animation-name: glitch-main; }
+
+@keyframes glitch-main {
+  0%    { transform: translateX(0);       clip-path: inset(0 0 0 0); }
+  1.5%  { transform: translateX(-0.09em); clip-path: inset(0 0 0 0); }
+  3%    { transform: translateX(0.15em);  clip-path: inset(30% 0 0 0); }
+  4.5%  { transform: translateX(-0.33em); clip-path: inset(0 0 40% 0); }
+  6%    { transform: translateX(0.21em);  clip-path: inset(45% 0 20% 0); }
+  7.5%  { transform: translateX(-0.54em); clip-path: inset(10% 0 60% 0); }
+  9%    { transform: translateX(0.42em);  clip-path: inset(60% 0 25% 0); }
+  10.5% { transform: translateX(-0.78em); clip-path: inset(30% 0 62% 0); }
+  12.5%, 100% { transform: translateX(0); clip-path: inset(0 0 0 0); }
+}
+
+@keyframes glitch-l {
+  0%    { opacity: 0; transform: translateX(0);       clip-path: inset(0 0 0 0); }
+  1.5%  { opacity: 1; transform: translateX(-0.18em); clip-path: inset(50% 0 10% 0); }
+  3%    { opacity: 1; transform: translateX(-0.06em); clip-path: inset(0 0 55% 0); }
+  4.5%  { opacity: 1; transform: translateX(-0.45em); clip-path: inset(20% 0 30% 0); }
+  6%    { opacity: 1; transform: translateX(-0.15em); clip-path: inset(70% 0 0 0); }
+  7.5%  { opacity: 1; transform: translateX(-0.72em); clip-path: inset(35% 0 45% 0); }
+  9%    { opacity: 1; transform: translateX(-0.33em); clip-path: inset(0 0 80% 0); }
+  10.5% { opacity: 1; transform: translateX(-0.99em); clip-path: inset(75% 0 15% 0); }
+  12.5%, 100% { opacity: 0; transform: translateX(0); clip-path: inset(0 0 0 0); }
+}
+
+@keyframes glitch-r {
+  0%    { opacity: 0; transform: translateX(0);      clip-path: inset(0 0 0 0); }
+  1.5%  { opacity: 1; transform: translateX(0.12em); clip-path: inset(15% 0 60% 0); }
+  3%    { opacity: 1; transform: translateX(0.27em); clip-path: inset(55% 0 5% 0); }
+  4.5%  { opacity: 1; transform: translateX(0.09em); clip-path: inset(5% 0 75% 0); }
+  6%    { opacity: 1; transform: translateX(0.51em); clip-path: inset(25% 0 50% 0); }
+  7.5%  { opacity: 1; transform: translateX(0.18em); clip-path: inset(80% 0 0 0); }
+  9%    { opacity: 1; transform: translateX(0.69em); clip-path: inset(40% 0 35% 0); }
+  10.5% { opacity: 1; transform: translateX(0.36em); clip-path: inset(0 0 70% 0); }
+  12.5%, 100% { opacity: 0; transform: translateX(0); clip-path: inset(0 0 0 0); }
 }
 
 .footer-grid {

@@ -12,7 +12,7 @@
 <nav class="header-nav" aria-label="Main">
   <div class="nav-links">
     {% for item in site.nav %}
-    <a href="{{ item.url }}" class="nav-link{% if loop.last %} nav-pill{% endif %}"{% if page.url and page.url.startsWith(item.url) %} aria-current="page"{% endif %}>{{ item.label }}</a>
+    <a href="{{ item.url }}" class="nav-link"{% if page.url and page.url.startsWith(item.url) %} aria-current="page"{% endif %}>{{ item.label }}</a>
     {% endfor %}
   </div>
 </nav>
@@ -43,21 +43,24 @@
       </div>
 
       <div class="drawer-form-col">
-        <form class="form" data-contact-form data-email="{{ site.email }}">
+        <form class="form" data-contact-form data-turnstile-theme="light" action="/api/contact" method="post">
           <label>Name <input name="name" type="text" autocomplete="name" required></label>
           <label>Email <input name="email" type="email" inputmode="email" autocomplete="email" placeholder="example@company.com" required></label>
           <label>Reason
             <select name="reason" required>
               <option value="">Select…</option>
-              <option>Podcast</option>
-              <option>Speaking</option>
+              <option>Photography</option>
+              <option>Brand Strategy</option>
               <option>Consulting</option>
-              <option>Sponsorship</option>
+              <option>Speaking</option>
             </select>
           </label>
           <label>Message <textarea name="message" rows="3" required></textarea></label>
+          <label class="form-hp" aria-hidden="true">Leave this empty <input name="company_site" type="text" tabindex="-1" autocomplete="off"></label>
+          <div class="form-turnstile" data-turnstile></div>
           <button class="btn btn-primary" type="submit">Submit</button>
-          <p class="form-note">Submitting opens your email app with this message ready to send. Or write to <a href="mailto:{{ site.email }}">{{ site.email }}</a>.</p>
+          <p class="form-status" role="status" aria-live="polite"></p>
+          <p class="form-note">Protected by Cloudflare Turnstile. Or write to <a href="mailto:{{ site.email }}">{{ site.email }}</a>.</p>
         </form>
       </div>
     </div>

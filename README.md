@@ -18,3 +18,23 @@ npm run build      # build to dist/
 - `src/_data/site.json` holds site-wide details: name, URL, default meta tags, contact and social links.
 - `src/_includes/component/head.njk` is the page head.
 - `content-import/` is everything extracted from the current ashmurrell.com site. It is reference material and is not built into the site. See `content-import/README.md`.
+- `functions/api/contact.js` is a Cloudflare Pages Function: the contact form posts to `/api/contact`, which checks Cloudflare Turnstile and emails the message through Resend.
+
+## Contact form
+
+The contact form lives in the "Let's Talk" drawer, on every page. Any link to `#contact` opens it (add `data-reason="Speaking"` etc. to pre-select a reason), and the old `/contact/` URL redirects to `/#contact`. It sends to `/api/contact`. Spam is blocked by [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/) and a hidden honeypot field; mail goes out through [Resend](https://resend.com/).
+
+**Site key:** set `turnstileSiteKey` in `src/_data/site.json`. While it's empty, the site uses Cloudflare's always-pass test key.
+
+**Cloudflare Pages → Settings → Variables and Secrets** (Production, and Preview if wanted):
+
+| Variable | |
+|---|---|
+| `TURNSTILE_SECRET_KEY` | Secret key of the Turnstile widget (encrypt) |
+| `RESEND_API_KEY` | Resend API key with sending access (encrypt) |
+| `CONTACT_FROM_EMAIL` | Sender on a domain verified in Resend, e.g. `Ash Murrell website <website@ashmurrell.com>` |
+| `CONTACT_TO_EMAIL` | Optional. Where messages go; defaults to `info@ashmurrell.com` |
+
+In the Turnstile dashboard, add `ashmurrell.com` (and any preview hostnames) to the widget's hostnames.
+
+**Locally:** copy `.dev.vars.example` to `.dev.vars`, fill it in, then `npm run dev:pages` (builds, then serves with Wrangler so `/api/contact` runs). `npm start` alone serves the pages but not the function.

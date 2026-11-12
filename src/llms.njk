@@ -1,0 +1,47 @@
+---
+permalink: /llms.txt
+layout: false
+eleventyExcludeFromCollections: true
+---
+{#- llms.txt (https://llmstxt.org): a plain Markdown guide to the site for AI assistants and
+    answer engines. Built from site.json and the episode and post collections, so it stays current. -#}
+# {{ site.name }}
+
+> {{ site.description | safe }}
+
+{{ site.name }} is based in Belleville, Ontario, Canada. He works in four areas:
+
+- **Photography:** environmental and editorial portraits of people at work.
+- **Brand strategy:** helping businesses and creatives get clear on what they stand for and how they show it.
+- **Consulting:** working conversations with leaders and teams on clarity, direction and decision-making.
+- **Speaking:** facilitated talks that help groups slow down, think clearly and ask better questions.
+
+He also hosts *Amplified*, a long-form podcast of conversations with people who build meaningful things, and writes about creative work, leadership and building in public.
+
+To get in touch: email {{ site.email }}, or use the contact form at {{ site.url }}/#contact (reasons: Photography, Brand Strategy, Consulting, Speaking).
+
+## Pages
+
+- [Home]({{ site.url }}/): Overview, photography portfolio, latest writing.
+- [About]({{ site.url }}/about-us/): Ash's story, approach and background.
+- [Speaking]({{ site.url }}/speaking/): Talks and working sessions for leaders, teams and organizations, and how to book one.
+- [Amplified podcast]({{ site.url }}/podcast/): All {{ collections.episodeList.length }} episodes.
+- [Blog]({{ site.url }}/blog/): All {{ collections.postList.length }} posts.
+
+## Amplified podcast episodes
+
+{% for item in collections.episodeList -%}
+- [{{ item.data.title | safe }}]({{ site.url }}{{ item.url }}): Episode {{ item.data.episode }}{% if item.data.guest and item.data.guest != site.name %}, with {{ item.data.guest | safe }}{% endif %} ({{ item.date | readableDate }}). {{ item.data.description | cleanSummary(item.templateContent) | safe }}
+{% endfor %}
+## Blog posts
+
+{% for item in collections.postList -%}
+- [{{ item.data.title | safe }}]({{ site.url }}{{ item.url }}): {% if item.data.category %}{{ item.data.category | safe }}, {% endif %}{{ item.date | readableDate }}. {{ item.data.description | cleanSummary(item.templateContent) | safe }}
+{% endfor %}
+## Elsewhere
+
+- [YouTube]({{ site.social.youtube }}): *Amplified* video episodes.
+- [Spotify]({{ site.social.spotify }}): *Amplified* audio episodes.
+- [Instagram]({{ site.social.instagram }})
+- [LinkedIn]({{ site.social.linkedin }})
+- [Substack]({{ site.social.substack }})

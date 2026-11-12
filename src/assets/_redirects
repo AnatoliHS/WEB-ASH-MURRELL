@@ -1,3 +1,7 @@
+# The contact page is now the drawer form, opened from anywhere with #contact
+/contact /#contact 301
+/contact/ /#contact 301
+
 # Old ashmurrell.com URLs
 /podcast/building-a-creative-career-outside-the-big-cities/full-notes /podcast/building-a-creative-career-outside-the-big-cities/ 301
 /podcast/stephanie-rayton-dropping-the-mop/full-notes /podcast/stephanie-rayton-dropping-the-mop/ 301

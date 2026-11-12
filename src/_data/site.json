@@ -6,6 +6,7 @@
   "tagline": "Creating space for clarity, brave work, and conversations that matter.",
   "jobTitle": "Brand Strategist",
   "email": "info@ashmurrell.com",
+  "turnstileSiteKey": "",
   "address": "1325 Highway #2, Unit 4, Belleville, ON, K8P4T3",
   "social": {
     "youtube": "https://www.youtube.com/@amplifiedshow",
@@ -30,10 +31,6 @@
     {
       "label": "Speaking",
       "url": "/speaking/"
-    },
-    {
-      "label": "Contact",
-      "url": "/contact/"
     }
   ],
   "phrases": [
