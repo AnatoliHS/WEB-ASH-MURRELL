@@ -32,8 +32,10 @@ The contact form lives in the "Let's Talk" drawer, on every page. Any link to `#
 |---|---|
 | `TURNSTILE_SECRET_KEY` | Secret key of the Turnstile widget (encrypt) |
 | `RESEND_API_KEY` | Resend API key with sending access (encrypt) |
-| `CONTACT_FROM_EMAIL` | Sender on a domain verified in Resend, e.g. `Ash Murrell website <website@ashmurrell.com>` |
+| `CONTACT_FROM_EMAIL` | Optional. Sender on a domain verified in Resend; defaults to `Ash Murrell website <website@forms.ashmurrell.com>` |
 | `CONTACT_TO_EMAIL` | Optional. Where messages go; defaults to `info@ashmurrell.com` |
+
+In Resend, add and verify the domain `forms.ashmurrell.com` (its DNS records go on the `forms` subdomain), so mail can be sent from it.
 
 In the Turnstile dashboard, add `ashmurrell.com` (and any preview hostnames) to the widget's hostnames.
 

@@ -5,8 +5,11 @@
 //   TURNSTILE_SECRET_KEY  Turnstile widget's secret key (encrypt it)
 //   RESEND_API_KEY        Resend API key with send access (encrypt it)
 //   CONTACT_TO_EMAIL      Where messages go. Default: info@ashmurrell.com
-//   CONTACT_FROM_EMAIL    Sender, on a domain verified in Resend,
-//                         e.g. "Ash Murrell website <website@ashmurrell.com>"
+//   CONTACT_FROM_EMAIL    Sender, on a domain verified in Resend.
+//                         Default: "Ash Murrell website <website@forms.ashmurrell.com>"
+
+const TO_EMAIL = "info@ashmurrell.com";
+const FROM_EMAIL = "Ash Murrell website <website@forms.ashmurrell.com>";
 
 const REASONS = ["Photography", "Brand Strategy", "Consulting", "Speaking"];
 const LIMITS = { name: 120, email: 254, business: 160, website: 300, message: 5000 };
@@ -41,8 +44,8 @@ async function verifyTurnstile(token, secret, ip) {
 }
 
 export async function onRequestPost({ request, env }) {
-  if (!env.TURNSTILE_SECRET_KEY || !env.RESEND_API_KEY || !env.CONTACT_FROM_EMAIL) {
-    console.error("Contact form: missing TURNSTILE_SECRET_KEY, RESEND_API_KEY or CONTACT_FROM_EMAIL");
+  if (!env.TURNSTILE_SECRET_KEY || !env.RESEND_API_KEY) {
+    console.error("Contact form: missing TURNSTILE_SECRET_KEY or RESEND_API_KEY");
     return json({ ok: false, error: "The form isn't set up yet." }, 500);
   }
 
@@ -98,8 +101,8 @@ export async function onRequestPost({ request, env }) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      from: env.CONTACT_FROM_EMAIL,
-      to: [env.CONTACT_TO_EMAIL || "info@ashmurrell.com"],
+      from: env.CONTACT_FROM_EMAIL || FROM_EMAIL,
+      to: [env.CONTACT_TO_EMAIL || TO_EMAIL],
       reply_to: email,
       subject: `${reason} enquiry from ${name}`,
       text,
