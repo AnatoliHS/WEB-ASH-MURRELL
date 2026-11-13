@@ -75,9 +75,16 @@ function applyBrand(animate) {
   }
 }
 
+// Phones fire resize as the address bar shows and hides while scrolling, which only changes the
+// height. Snapping there would swallow the glitch as the brand returns to the hero, so only a
+// width change (rotation, window resize) snaps; otherwise it goes through the animated path.
+let measuredWidth = 0;
+
 function remeasure() {
+  const widthChanged = window.innerWidth !== measuredWidth;
+  measuredWidth = window.innerWidth;
   measurePositions();
-  applyBrand(false);
+  applyBrand(!widthChanged);
 }
 
 remeasure();
