@@ -14,15 +14,6 @@ layout: default
   </div>
 </section>
 
-{% set photos = [
-  { src: "501271621_3025138110978972_4418920802791399271_n.jpg", w: 2048, h: 1380, alt: "A man in a blazer outside a glass office building, looking up and off to the side" },
-  { src: "505808905_3038414836317966_1909619584631624587_n.jpg", w: 2048, h: 1365, alt: "A bearded carpenter at a mitre saw under a stormy sky, sawdust flying" },
-  { src: "507122554_3042965002529616_8541668875981925760_n.jpg", w: 1080, h: 720, alt: "A tattooed mechanic in work gloves leaning on a car frame in a hazy garage" },
-  { src: "507983017_3043984879094295_1801283689962054474_n.jpg", w: 1080, h: 720, alt: "An older man in glasses at a café table on a main street, a newspaper open in front of him" },
-  { src: "53854724_1185328351626633_5615039487429050368_n.jpg", w: 1042, h: 1042, alt: "A boxer in training gloves holding a towel around her neck in a dark gym" },
-  { src: "89298880_1494616904031108_3279395757437747200_n.jpg", w: 1440, h: 1080, alt: "Two surgeons in scrubs standing under operating room lights" }
-] %}
-
 <section class="section photo-section" aria-labelledby="photography-title">
   <div class="container">
     <div class="section-head">
@@ -41,9 +32,11 @@ layout: default
     </div>
   </div>
   <ul class="photo-track" data-carousel tabindex="0" aria-label="Photography, scrolls sideways">
-    {% for photo in photos %}
+    {# Edited in the CMS (/admin): src/_data/photos.json. Width and height are read from each file. #}
+    {% for photo in photos.photos %}
+    {% set size = photo.image | imageSize %}
     <li class="photo-slide">
-      <img src="/images/photos/{{ photo.src }}" alt="{{ photo.alt }}" width="{{ photo.w }}" height="{{ photo.h }}" loading="lazy" decoding="async">
+      <img src="{{ photo.image }}" alt="{{ photo.alt }}" width="{{ size.width }}" height="{{ size.height }}" loading="lazy" decoding="async">
     </li>
     {% endfor %}
   </ul>

@@ -1,4 +1,6 @@
 const fs = require("fs");
+const path = require("path");
+const sizeOf = require("image-size");
 
 module.exports = function(eleventyConfig) {
   // src/assets is served from the site root: /style.css, /images/...
@@ -13,6 +15,17 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addCollection("postList", api =>
     api.getFilteredByGlob("src/blog/*.md").sort((a, b) => b.date - a.date)
   );
+
+  // Width and height of an image under src/assets, from its site path (/images/...). The CMS
+  // only stores the path, so the home page photos get their dimensions here.
+  eleventyConfig.addFilter("imageSize", src => {
+    try {
+      const { width, height } = sizeOf(path.join("src/assets", String(src || "")));
+      return { width, height };
+    } catch {
+      return {};
+    }
+  });
 
   eleventyConfig.addFilter("first", (items, count) => items.slice(0, count));
 

@@ -1,0 +1,91 @@
+# Decap CMS: edits commit straight to the develop branch, and Cloudflare Pages rebuilds the site.
+# Docs: https://decapcms.org/docs/configuration-options/
+
+backend:
+  name: github
+  repo: AnatoliHS/WEB-ASH-MURRELL
+  branch: develop
+  # base_url is set to the current domain in admin/index.html
+  auth_endpoint: api/auth
+  commit_messages:
+    create: "content: add {{collection}} “{{slug}}”"
+    update: "content: update {{collection}} “{{slug}}”"
+    delete: "content: delete {{collection}} “{{slug}}”"
+    uploadMedia: "content: upload {{path}}"
+    deleteMedia: "content: delete {{path}}"
+
+# Run `npm run cms` alongside `npm start` to edit local files at localhost:8080/admin/ without signing in
+local_backend: true
+
+# Uploads that aren't tied to a collection below
+media_folder: src/assets/images/uploads
+public_folder: /images/uploads
+
+slug:
+  encoding: ascii
+  clean_accents: true
+
+collections:
+  - name: blog
+    label: Blog
+    label_singular: Post
+    description: Posts at /blog/. The file name, and so the web address, comes from the title when the post is first saved.
+    folder: src/blog
+    extension: md
+    format: frontmatter
+    create: true
+    slug: "{{slug}}"
+    media_folder: /src/assets/images/blog
+    public_folder: /images/blog
+    summary: "{{title}} · {{date | date('MMM D, YYYY')}}"
+    sortable_fields: [date, title]
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Date, name: date, widget: datetime, format: YYYY-MM-DD, date_format: YYYY-MM-DD, time_format: false, picker_utc: true, default: "{{now}}" }
+      - { label: Category, name: category, widget: string, required: false, hint: "Shown above the title, e.g. Leadership or Strategy. Leave blank to show “Blog”." }
+      - { label: Description, name: description, widget: text, hint: "One or two sentences. Used in search results and when the post is shared." }
+      - { label: Image, name: image, widget: image, choose_url: false, hint: "Landscape, about 1920 × 1080. Also used as the share image." }
+      - { label: Body, name: body, widget: markdown }
+
+  - name: podcast
+    label: Podcast
+    label_singular: Episode
+    description: Amplified episodes at /podcast/, listed by episode number.
+    folder: src/podcast
+    extension: md
+    format: frontmatter
+    create: true
+    slug: "{{slug}}"
+    media_folder: /src/assets/images/podcast
+    public_folder: /images/podcast
+    summary: "{{episode}}. {{title}} · {{guest}}"
+    sortable_fields: [episode, date, title]
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Episode number, name: episode, widget: number, value_type: int, min: 0 }
+      - { label: Guest, name: guest, widget: string }
+      - { label: Date, name: date, widget: datetime, format: YYYY-MM-DD, date_format: YYYY-MM-DD, time_format: false, picker_utc: true, default: "{{now}}" }
+      - { label: Spotify link, name: spotify, widget: string, required: false, pattern: ["^https://open\\.spotify\\.com/", "Paste the episode link from Spotify"] }
+      - { label: YouTube link, name: youtube, widget: string, required: false, hint: "The video is embedded on the episode page.", pattern: ["^https://(www\\.)?(youtube\\.com|youtu\\.be)/", "Paste the video link from YouTube"] }
+      - { label: Description, name: description, widget: text, hint: "One or two sentences. Used in search results and when the episode is shared." }
+      - { label: Image, name: image, widget: image, choose_url: false, hint: "The episode thumbnail, landscape, about 1920 × 1080." }
+      - { label: Show notes, name: body, widget: markdown }
+
+  - name: home
+    label: Home page
+    editor: { preview: false }
+    files:
+      - name: photos
+        label: Photography
+        file: src/_data/photos.json
+        format: json
+        description: The Photography carousel on the home page, in the order shown. Drag to reorder.
+        fields:
+          - label: Photos
+            name: photos
+            label_singular: Photo
+            widget: list
+            summary: "{{fields.alt}}"
+            fields:
+              - { label: Photo, name: image, widget: image, choose_url: false, media_folder: /src/assets/images/photos, public_folder: /images/photos, hint: "Shown at a fixed height, so any shape works. Keep files under about 1 MB." }
+              - { label: Description, name: alt, widget: string, hint: "What's in the photo, for people using screen readers, e.g. “A carpenter at a mitre saw under a stormy sky”." }

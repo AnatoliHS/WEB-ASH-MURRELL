@@ -10,3 +10,8 @@ RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxxxxxx
 # Optional overrides: where messages go, and who they're from (a domain verified in Resend)
 # CONTACT_TO_EMAIL=info@ashmurrell.com
 # CONTACT_FROM_EMAIL=Ash Murrell website <website@forms.ashmurrell.com>
+
+# CMS sign-in (/admin/): a GitHub OAuth App (github.com/settings/developers) whose callback URL
+# is http://localhost:8788/api/callback for local testing, or https://<site>/api/callback in production
+GITHUB_CLIENT_ID=
+GITHUB_CLIENT_SECRET=

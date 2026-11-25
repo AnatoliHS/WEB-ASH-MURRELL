@@ -12,13 +12,15 @@
         "start": "eleventy --serve",
         "build": "eleventy",
         "buildfresh": "rm -rf dist _site && eleventy",
-        "dev:pages": "eleventy && npx wrangler pages dev dist"
+        "dev:pages": "eleventy && npx wrangler pages dev dist",
+        "cms": "npx decap-server@3.11.6"
     },
     "license": "AGPL-3.0-only",
     "devDependencies": {
         "@11ty/eleventy": "^2.0.1"
     },
     "dependencies": {
+        "image-size": "^1.2.1",
         "luxon": "^3.7.2"
     }
 }
