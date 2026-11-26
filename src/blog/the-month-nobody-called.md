@@ -4,7 +4,7 @@ date: 2026-11-27
 description: When I was busy, I had no time to talk to people. When I wasn't, I
   had nothing but time. Here's the referral trap I didn't see coming, and the
   quadrant that got me out.
-image: /images/blog/the-month-nobody-called.jpg
+image: /images/blog/e01-youtube-thumbnail-c.jpg
 ---
 There was a month, early in my commercial photography business, when nobody called.
 
